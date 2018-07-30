@@ -1,6 +1,7 @@
 package com.travel;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.travel.dto.PlaceSearchDto;
 import com.travel.dto.RidingDTO;
@@ -71,8 +72,7 @@ public class TestTravel {
         String url = "http://api.map.baidu.com/direction/v2/riding?origin=22.515435,113.925953&destination=22.506791,113.929234&ak=jvVeiWBf1Ez7Ink7Xt3cXjexcCUPcWpE";
         JSONObject jsonObject = util.HttpClientUtils.httpGet(url);
         JSONObject result = JSON.parseObject(jsonObject.get("result").toString());
-        RidingDTO riding = JSON.parseObject(result.get("routes").toString(),RidingDTO.class);
-
+        RidingDTO riding =  JSON.parseObject(result.getJSONArray("routes").get(0).toString(),RidingDTO.class);
     }
 
 

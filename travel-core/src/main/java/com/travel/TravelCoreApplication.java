@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableElasticJob
 //开启动态任务添加API
-@ComponentScan({"com.travel.jobs"})
+//@ComponentScan({"com.travel.jobs"})
 @MapperScan ("com.travel.dao")
 public class TravelCoreApplication {
 
