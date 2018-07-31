@@ -1,4 +1,4 @@
-package com.travel.model;
+package com.travel.entity;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class RouteInfo {
     /**
      * 出发地轨迹id
      */
-    private Long routeId;
+    private Long parentRouteId;
 
     /**
      * 目的地
@@ -80,6 +80,11 @@ public class RouteInfo {
 
     /**
      * 
+     */
+    private Long petId;
+
+    /**
+     * 
      * @return id 
      */
     public Long getId() {
@@ -96,18 +101,18 @@ public class RouteInfo {
 
     /**
      * 出发地轨迹id
-     * @return route_id 出发地轨迹id
+     * @return parent_route_id 出发地轨迹id
      */
-    public Long getRouteId() {
-        return routeId;
+    public Long getParentRouteId() {
+        return parentRouteId;
     }
 
     /**
      * 出发地轨迹id
-     * @param routeId 出发地轨迹id
+     * @param parentRouteId 出发地轨迹id
      */
-    public void setRouteId(Long routeId) {
-        this.routeId = routeId;
+    public void setParentRouteId(Long parentRouteId) {
+        this.parentRouteId = parentRouteId;
     }
 
     /**
@@ -316,5 +321,21 @@ public class RouteInfo {
      */
     public void setUpdatedTm(Date updatedTm) {
         this.updatedTm = updatedTm;
+    }
+
+    /**
+     * 
+     * @return pet_id 
+     */
+    public Long getPetId() {
+        return petId;
+    }
+
+    /**
+     * 
+     * @param petId 
+     */
+    public void setPetId(Long petId) {
+        this.petId = petId;
     }
 }

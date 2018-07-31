@@ -1,7 +1,7 @@
 package com.travel.dao;
 
-import com.travel.model.ExcludeRoute;
-import com.travel.model.ExcludeRouteExample;
+import com.travel.entity.ExcludeRoute;
+import com.travel.entity.ExcludeRouteExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

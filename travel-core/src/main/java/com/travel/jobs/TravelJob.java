@@ -1,13 +1,12 @@
 package com.travel.jobs;
 
-import com.cxytiandi.elasticjob.annotation.ElasticJobConf;
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.travel.dao.RouteInfoMapper;
-import com.travel.dto.RouteInfoDTO;
-import com.travel.model.RouteInfo;
-import com.travel.model.RouteInfoExample;
-import com.travel.service.RouteSelectService;
+import model.dto.RouteInfoDTO;
+import com.travel.entity.RouteInfo;
+import com.travel.entity.RouteInfoExample;
+import com.travel.service.ResourceService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -19,18 +18,18 @@ import java.util.List;
  * @Author: 990016
  * @Date 2018/7/27 16:28
  */
-@ElasticJobConf (name = "MySimpleJob",cron = "0/5 * * * * ?" ,shardingItemParameters = "0=0,1=1")
-public class MySimpleJob implements SimpleJob {
+//@ElasticJobConf (name = "TravelJob",cron = "0/60 * * * * ?" ,shardingItemParameters = "0=0,1=1")
+public class TravelJob implements SimpleJob {
 
     @Autowired
     private RouteInfoMapper routeInfoMapper;
 
     @Autowired
-    private RouteSelectService routeSelectService;
+    private ResourceService routeSelectService;
     @Override
     public void execute(ShardingContext context) {
         RouteInfoExample example=new RouteInfoExample();
-        example.setOrderByClause("id desc");
+        example.setOrderByClause(" id desc");
         example.setLimitEnd(1);
         RouteInfo routeInfo=getRoute(example);
         RouteInfoDTO routeInfoDTO=new RouteInfoDTO();
@@ -42,7 +41,7 @@ public class MySimpleJob implements SimpleJob {
         List<RouteInfo> routeInfos= routeInfoMapper.selectByExample(example);
         if(CollectionUtils.isEmpty(routeInfos)){
             RouteInfo record=new RouteInfo();
-            record.setRouteId(0L);
+            record.setParentRouteId(0L);
             record.setLatitude(22.526216);
             record.setLongitude(113.92562);
             routeInfoMapper.insertSelective(record);

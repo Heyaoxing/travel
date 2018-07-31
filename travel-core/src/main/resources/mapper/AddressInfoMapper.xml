@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.travel.dao.RouteInfoMapper">
-  <resultMap id="BaseResultMap" type="com.travel.entity.RouteInfo">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="parent_route_id" jdbcType="BIGINT" property="parentRouteId" />
+<mapper namespace="com.travel.dao.AddressInfoMapper">
+  <resultMap id="BaseResultMap" type="com.travel.entity.AddressInfo">
+    <id column="address_uid" jdbcType="VARCHAR" property="addressUid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="latitude" jdbcType="DOUBLE" property="latitude" />
     <result column="longitude" jdbcType="DOUBLE" property="longitude" />
@@ -12,12 +11,9 @@
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="area" jdbcType="VARCHAR" property="area" />
     <result column="street_id" jdbcType="VARCHAR" property="streetId" />
-    <result column="address_uid" jdbcType="VARCHAR" property="addressUid" />
-    <result column="distance" jdbcType="INTEGER" property="distance" />
-    <result column="duration" jdbcType="INTEGER" property="duration" />
     <result column="created_tm" jdbcType="TIMESTAMP" property="createdTm" />
     <result column="updated_tm" jdbcType="TIMESTAMP" property="updatedTm" />
-    <result column="pet_id" jdbcType="BIGINT" property="petId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,16 +74,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parent_route_id, name, latitude, longitude, address, province, city, area, street_id, 
-    address_uid, distance, duration, created_tm, updated_tm, pet_id
+    address_uid, name, latitude, longitude, address, province, city, area, street_id, 
+    created_tm, updated_tm, url
   </sql>
-  <select id="selectByExample" parameterType="com.travel.entity.RouteInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.travel.entity.AddressInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from travel_route_info
+    from travel_address_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -98,44 +94,39 @@
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from travel_route_info
-    where id = #{id,jdbcType=BIGINT}
+    from travel_address_info
+    where address_uid = #{addressUid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from travel_route_info
-    where id = #{id,jdbcType=BIGINT}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from travel_address_info
+    where address_uid = #{addressUid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.travel.entity.RouteInfoExample">
-    delete from travel_route_info
+  <delete id="deleteByExample" parameterType="com.travel.entity.AddressInfoExample">
+    delete from travel_address_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.travel.entity.RouteInfo">
-    insert into travel_route_info (id, parent_route_id, name, 
-      latitude, longitude, address, 
-      province, city, area, 
-      street_id, address_uid, distance, 
-      duration, created_tm, updated_tm, 
-      pet_id)
-    values (#{id,jdbcType=BIGINT}, #{parentRouteId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
-      #{streetId,jdbcType=VARCHAR}, #{addressUid,jdbcType=VARCHAR}, #{distance,jdbcType=INTEGER}, 
-      #{duration,jdbcType=INTEGER}, #{createdTm,jdbcType=TIMESTAMP}, #{updatedTm,jdbcType=TIMESTAMP}, 
-      #{petId,jdbcType=BIGINT})
+  <insert id="insert" parameterType="com.travel.entity.AddressInfo">
+    insert into travel_address_info (address_uid, name, latitude, 
+      longitude, address, province, 
+      city, area, street_id, 
+      created_tm, updated_tm, url
+      )
+    values (#{addressUid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{streetId,jdbcType=VARCHAR}, 
+      #{createdTm,jdbcType=TIMESTAMP}, #{updatedTm,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.travel.entity.RouteInfo">
-    insert into travel_route_info
+  <insert id="insertSelective" parameterType="com.travel.entity.AddressInfo">
+    insert into travel_address_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="parentRouteId != null">
-        parent_route_id,
+      <if test="addressUid != null">
+        address_uid,
       </if>
       <if test="name != null">
         name,
@@ -161,31 +152,19 @@
       <if test="streetId != null">
         street_id,
       </if>
-      <if test="addressUid != null">
-        address_uid,
-      </if>
-      <if test="distance != null">
-        distance,
-      </if>
-      <if test="duration != null">
-        duration,
-      </if>
       <if test="createdTm != null">
         created_tm,
       </if>
       <if test="updatedTm != null">
         updated_tm,
       </if>
-      <if test="petId != null">
-        pet_id,
+      <if test="url != null">
+        url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="parentRouteId != null">
-        #{parentRouteId,jdbcType=BIGINT},
+      <if test="addressUid != null">
+        #{addressUid,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -211,40 +190,28 @@
       <if test="streetId != null">
         #{streetId,jdbcType=VARCHAR},
       </if>
-      <if test="addressUid != null">
-        #{addressUid,jdbcType=VARCHAR},
-      </if>
-      <if test="distance != null">
-        #{distance,jdbcType=INTEGER},
-      </if>
-      <if test="duration != null">
-        #{duration,jdbcType=INTEGER},
-      </if>
       <if test="createdTm != null">
         #{createdTm,jdbcType=TIMESTAMP},
       </if>
       <if test="updatedTm != null">
         #{updatedTm,jdbcType=TIMESTAMP},
       </if>
-      <if test="petId != null">
-        #{petId,jdbcType=BIGINT},
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.travel.entity.RouteInfoExample" resultType="java.lang.Long">
-    select count(*) from travel_route_info
+  <select id="countByExample" parameterType="com.travel.entity.AddressInfoExample" resultType="java.lang.Long">
+    select count(*) from travel_address_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update travel_route_info
+    update travel_address_info
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.parentRouteId != null">
-        parent_route_id = #{record.parentRouteId,jdbcType=BIGINT},
+      <if test="record.addressUid != null">
+        address_uid = #{record.addressUid,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -270,23 +237,14 @@
       <if test="record.streetId != null">
         street_id = #{record.streetId,jdbcType=VARCHAR},
       </if>
-      <if test="record.addressUid != null">
-        address_uid = #{record.addressUid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.distance != null">
-        distance = #{record.distance,jdbcType=INTEGER},
-      </if>
-      <if test="record.duration != null">
-        duration = #{record.duration,jdbcType=INTEGER},
-      </if>
       <if test="record.createdTm != null">
         created_tm = #{record.createdTm,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updatedTm != null">
         updated_tm = #{record.updatedTm,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.petId != null">
-        pet_id = #{record.petId,jdbcType=BIGINT},
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -294,9 +252,8 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update travel_route_info
-    set id = #{record.id,jdbcType=BIGINT},
-      parent_route_id = #{record.parentRouteId,jdbcType=BIGINT},
+    update travel_address_info
+    set address_uid = #{record.addressUid,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       latitude = #{record.latitude,jdbcType=DOUBLE},
       longitude = #{record.longitude,jdbcType=DOUBLE},
@@ -305,22 +262,16 @@
       city = #{record.city,jdbcType=VARCHAR},
       area = #{record.area,jdbcType=VARCHAR},
       street_id = #{record.streetId,jdbcType=VARCHAR},
-      address_uid = #{record.addressUid,jdbcType=VARCHAR},
-      distance = #{record.distance,jdbcType=INTEGER},
-      duration = #{record.duration,jdbcType=INTEGER},
       created_tm = #{record.createdTm,jdbcType=TIMESTAMP},
       updated_tm = #{record.updatedTm,jdbcType=TIMESTAMP},
-      pet_id = #{record.petId,jdbcType=BIGINT}
+      url = #{record.url,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.travel.entity.RouteInfo">
-    update travel_route_info
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.entity.AddressInfo">
+    update travel_address_info
     <set>
-      <if test="parentRouteId != null">
-        parent_route_id = #{parentRouteId,jdbcType=BIGINT},
-      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -345,31 +296,21 @@
       <if test="streetId != null">
         street_id = #{streetId,jdbcType=VARCHAR},
       </if>
-      <if test="addressUid != null">
-        address_uid = #{addressUid,jdbcType=VARCHAR},
-      </if>
-      <if test="distance != null">
-        distance = #{distance,jdbcType=INTEGER},
-      </if>
-      <if test="duration != null">
-        duration = #{duration,jdbcType=INTEGER},
-      </if>
       <if test="createdTm != null">
         created_tm = #{createdTm,jdbcType=TIMESTAMP},
       </if>
       <if test="updatedTm != null">
         updated_tm = #{updatedTm,jdbcType=TIMESTAMP},
       </if>
-      <if test="petId != null">
-        pet_id = #{petId,jdbcType=BIGINT},
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where address_uid = #{addressUid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.travel.entity.RouteInfo">
-    update travel_route_info
-    set parent_route_id = #{parentRouteId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.travel.entity.AddressInfo">
+    update travel_address_info
+    set name = #{name,jdbcType=VARCHAR},
       latitude = #{latitude,jdbcType=DOUBLE},
       longitude = #{longitude,jdbcType=DOUBLE},
       address = #{address,jdbcType=VARCHAR},
@@ -377,12 +318,9 @@
       city = #{city,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
       street_id = #{streetId,jdbcType=VARCHAR},
-      address_uid = #{addressUid,jdbcType=VARCHAR},
-      distance = #{distance,jdbcType=INTEGER},
-      duration = #{duration,jdbcType=INTEGER},
       created_tm = #{createdTm,jdbcType=TIMESTAMP},
       updated_tm = #{updatedTm,jdbcType=TIMESTAMP},
-      pet_id = #{petId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+      url = #{url,jdbcType=VARCHAR}
+    where address_uid = #{addressUid,jdbcType=VARCHAR}
   </update>
 </mapper>

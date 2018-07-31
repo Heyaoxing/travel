@@ -1,12 +1,12 @@
-package com.travel.model;
+package com.travel.entity;
 
 import java.util.Date;
 
-public class ExcludeRoute {
+public class AddressInfo {
     /**
-     * 
+     * 地图地区uid
      */
-    private Integer id;
+    private String addressUid;
 
     /**
      * 目的地
@@ -49,29 +49,34 @@ public class ExcludeRoute {
     private String streetId;
 
     /**
-     * 地图地区uid
-     */
-    private String addressUid;
-
-    /**
      * 创建时间
      */
     private Date createdTm;
 
     /**
-     * 
-     * @return id 
+     * 更新时间
      */
-    public Integer getId() {
-        return id;
+    private Date updatedTm;
+
+    /**
+     * 景点图片链接
+     */
+    private String url;
+
+    /**
+     * 地图地区uid
+     * @return address_uid 地图地区uid
+     */
+    public String getAddressUid() {
+        return addressUid;
     }
 
     /**
-     * 
-     * @param id 
+     * 地图地区uid
+     * @param addressUid 地图地区uid
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAddressUid(String addressUid) {
+        this.addressUid = addressUid == null ? null : addressUid.trim();
     }
 
     /**
@@ -203,22 +208,6 @@ public class ExcludeRoute {
     }
 
     /**
-     * 地图地区uid
-     * @return address_uid 地图地区uid
-     */
-    public String getAddressUid() {
-        return addressUid;
-    }
-
-    /**
-     * 地图地区uid
-     * @param addressUid 地图地区uid
-     */
-    public void setAddressUid(String addressUid) {
-        this.addressUid = addressUid == null ? null : addressUid.trim();
-    }
-
-    /**
      * 创建时间
      * @return created_tm 创建时间
      */
@@ -232,5 +221,37 @@ public class ExcludeRoute {
      */
     public void setCreatedTm(Date createdTm) {
         this.createdTm = createdTm;
+    }
+
+    /**
+     * 更新时间
+     * @return updated_tm 更新时间
+     */
+    public Date getUpdatedTm() {
+        return updatedTm;
+    }
+
+    /**
+     * 更新时间
+     * @param updatedTm 更新时间
+     */
+    public void setUpdatedTm(Date updatedTm) {
+        this.updatedTm = updatedTm;
+    }
+
+    /**
+     * 景点图片链接
+     * @return url 景点图片链接
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * 景点图片链接
+     * @param url 景点图片链接
+     */
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 }

@@ -1,10 +1,9 @@
 package com.travel;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.travel.dto.PlaceSearchDto;
-import com.travel.dto.RidingDTO;
+import model.dto.PlaceSearchDTO;
+import model.dto.RidingDTO;
 import org.springframework.util.CollectionUtils;
 
 import java.text.MessageFormat;
@@ -38,7 +37,7 @@ public class TestTravel {
     private static double[] getRound(double[] location) {
         String url = MessageFormat.format("http://api.map.baidu.com/place/v2/search?query=景点&location={0},{1}&radius=2000&output=json&ak=jvVeiWBf1Ez7Ink7Xt3cXjexcCUPcWpE", location[0], location[1]);
         JSONObject jsonObject = util.HttpClientUtils.httpGet(url);
-        List<PlaceSearchDto> dtos = JSON.parseArray(jsonObject.get("results").toString(), PlaceSearchDto.class);
+        List<PlaceSearchDTO> dtos = JSON.parseArray(jsonObject.get("results").toString(), PlaceSearchDTO.class);
         if (!CollectionUtils.isEmpty(dtos) && dtos.size() > 0) {
             int index = select(dtos);
             if (index == -1 || time <= 0) {
@@ -46,7 +45,7 @@ public class TestTravel {
                 System.out.println("结束");
                 travel.clear();
             } else {
-                PlaceSearchDto dto = dtos.get(index);
+                PlaceSearchDTO dto = dtos.get(index);
                 double[] doubles = new double[]{dto.getLocation().getLat(), dto.getLocation().getLng()};
                 sb.append(MessageFormat.format("前往:{0},地点为:{1}\n", dto.getName(), dto.getAddress()));
                 time--;
@@ -56,7 +55,7 @@ public class TestTravel {
         return null;
     }
 
-    private static int select(List<PlaceSearchDto> dtos) {
+    private static int select(List<PlaceSearchDTO> dtos) {
         if (dtos.size() <= 0)
             return -1;
         int index = new Random(System.currentTimeMillis()).nextInt(dtos.size());

@@ -1,15 +1,14 @@
 package com.travel.service;
 
-import com.travel.dto.PlaceSearchDto;
-import com.travel.dto.RidingDTO;
-import com.travel.dto.RouteInfoDTO;
+import model.dto.PlaceSearchDTO;
+import model.dto.RouteInfoDTO;
 
 /**
- * @Description:
+ * @Description: 资源服务
  * @Author: 990016
  * @Date 2018/7/30 16:24
  */
-public interface RouteSelectService {
+public interface ResourceService {
 
 
     /**
@@ -25,6 +24,6 @@ public interface RouteSelectService {
      *
      * @return
      */
-     PlaceSearchDto getRound(double latitude,double longitude);
+     PlaceSearchDTO getRound(double latitude, double longitude);
 
 }

@@ -1,4 +1,4 @@
-package com.travel.model;
+package com.travel.entity;
 
 import java.util.ArrayList;
 import java.util.Date;

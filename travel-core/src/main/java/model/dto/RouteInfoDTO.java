@@ -1,4 +1,4 @@
-package com.travel.dto;
+package model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

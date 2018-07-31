@@ -1,4 +1,4 @@
-package com.travel.dto;
+package model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class PlaceSearchDto implements Serializable {
+public class PlaceSearchDTO implements Serializable {
     private String name;
     private Location location;
     private String address;

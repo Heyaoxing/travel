@@ -1,8 +1,8 @@
 package com.travel.dao;
 
+import com.travel.entity.RouteInfo;
+import com.travel.entity.RouteInfoExample;
 import java.util.List;
-import com.travel.model.RouteInfo;
-import com.travel.model.RouteInfoExample;
 import org.apache.ibatis.annotations.Param;
 
 public interface RouteInfoMapper {

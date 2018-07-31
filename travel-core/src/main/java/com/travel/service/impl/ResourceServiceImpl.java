@@ -4,16 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.travel.dao.ExcludeRouteMapper;
 import com.travel.dao.RouteInfoMapper;
-import com.travel.dto.PlaceSearchDto;
-import com.travel.dto.RidingDTO;
-import com.travel.dto.RouteInfoDTO;
-import com.travel.model.ExcludeRoute;
-import com.travel.model.ExcludeRouteExample;
-import com.travel.model.RouteInfo;
-import com.travel.model.RouteInfoExample;
-import com.travel.service.RouteSelectService;
-import common.SysConfig;
+import model.dto.PlaceSearchDTO;
+import model.dto.RidingDTO;
+import model.dto.RouteInfoDTO;
+import com.travel.entity.ExcludeRoute;
+import com.travel.entity.ExcludeRouteExample;
+import com.travel.entity.RouteInfo;
+import com.travel.entity.RouteInfoExample;
+import com.travel.service.ResourceService;
+import com.travel.config.SysConfig;
 import lombok.extern.slf4j.Slf4j;
+import model.enums.POITag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,13 +26,13 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * @Description:
+ * @Description: 资源服务
  * @Author: 990016
  * @Date 2018/7/30 16:24
  */
 @Slf4j
 @Service
-public class RouteSelectServiceImpl implements RouteSelectService {
+public class ResourceServiceImpl implements ResourceService {
 
 
     @Autowired
@@ -51,7 +52,7 @@ public class RouteSelectServiceImpl implements RouteSelectService {
         if (Objects.isNull(record)) {
             return false;
         }
-        PlaceSearchDto placeSearchDto = getRound(record.getLatitude(), record.getLongitude());
+        PlaceSearchDTO placeSearchDto = getRound(record.getLatitude(), record.getLongitude());
         if (Objects.isNull(placeSearchDto)) {
             return false;
         }
@@ -73,7 +74,7 @@ public class RouteSelectServiceImpl implements RouteSelectService {
         routeInfo.setName(placeSearchDto.getName());
         routeInfo.setProvince(placeSearchDto.getProvince());
         routeInfo.setStreetId(placeSearchDto.getStreet_id());
-        routeInfo.setRouteId(record.getId());
+        routeInfo.setParentRouteId(record.getId());
         routeInfoMapper.insertSelective(routeInfo);
         log.info("前往下一个地点成功!");
         return true;
@@ -86,7 +87,7 @@ public class RouteSelectServiceImpl implements RouteSelectService {
      *
      * @return
      */
-    private RidingDTO getRiding(RouteInfoDTO origin,PlaceSearchDto destination ) {
+    private RidingDTO getRiding(RouteInfoDTO origin,PlaceSearchDTO destination ) {
         String url = MessageFormat.format(SysConfig.BAIDURIDING, origin.getLatitude(), origin.getLongitude(), destination.getLocation().getLat(), destination.getLocation().getLng());
         JSONObject jsonObject = util.HttpClientUtils.httpGet(url);
         try {
@@ -120,16 +121,16 @@ public class RouteSelectServiceImpl implements RouteSelectService {
      * @return
      */
     @Override
-    public PlaceSearchDto getRound(double latitude, double longitude) {
+    public PlaceSearchDTO getRound(double latitude, double longitude) {
         try {
-            String url = MessageFormat.format(SysConfig.BAIDUMAPPLACESEARCHAPI, "景点", latitude, longitude);
+            String url = MessageFormat.format(SysConfig.BAIDUMAPPLACESEARCHAPI, POITag.POI_06.value, latitude, longitude);
             JSONObject jsonObject = util.HttpClientUtils.httpGet(url);
-            List<PlaceSearchDto> dtos = JSON.parseArray(jsonObject.get("results").toString(), PlaceSearchDto.class);
+            List<PlaceSearchDTO> dtos = JSON.parseArray(jsonObject.get("results").toString(), PlaceSearchDTO.class);
             if (!CollectionUtils.isEmpty(dtos) && dtos.size() > 0) {
                 int index = select(dtos);
                 log.info("可选择的地点有{},选择下标:{}",dtos.size(),index);
                 if (index >= 0) {
-                    PlaceSearchDto dto = dtos.get(index);
+                    PlaceSearchDTO dto = dtos.get(index);
                     log.info("前往目的地：" + JSON.toJSONString(dto));
                     return dto;
                 }
@@ -147,7 +148,7 @@ public class RouteSelectServiceImpl implements RouteSelectService {
      * @param dtos
      * @return
      */
-    private int select(List<PlaceSearchDto> dtos) {
+    private int select(List<PlaceSearchDTO> dtos) {
         if (dtos.size() <= 0){
             return -1;
         }
