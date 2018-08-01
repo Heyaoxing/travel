@@ -1,6 +1,7 @@
 package com.travel.service;
 
 import model.dto.StayPetDTO;
+import model.request.BeatPetRequest;
 
 import java.util.List;
 
@@ -13,8 +14,17 @@ public interface PetService {
 
     /**
      * 获得该地点在留详情
+     *
      * @param addressUid
      * @return
      */
     List<StayPetDTO> getStayPet(String addressUid);
+
+    /**
+     * 抓捕
+     *
+     * @param request
+     * @return
+     */
+    Boolean beatPet(BeatPetRequest request);
 }

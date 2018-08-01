@@ -1,4 +1,4 @@
-package com.travel.config;
+package common.config;
 
 /**
  * @Description:
@@ -15,8 +15,12 @@ public class SysConfig {
     /**
      * 百度路径规划api
      */
-    public static  String BAIDURIDING="http://api.map.baidu.com/direction/v2/riding?origin={0},{1}&destination={2},{3}&ak=jvVeiWBf1Ez7Ink7Xt3cXjexcCUPcWpE";
+    public static  String BAIDURIDINGAPI="http://api.map.baidu.com/direction/v2/riding?origin={0},{1}&destination={2},{3}&ak=jvVeiWBf1Ez7Ink7Xt3cXjexcCUPcWpE";
 
+    /**
+     * 天气预报接口
+     */
+    public static String WEATHERAPI="https://jisutqybmf.market.alicloudapi.com/weather/query";
 
     /**
      * 最小停留时间(分钟)
@@ -31,4 +35,9 @@ public class SysConfig {
      * 多少只老鼠可以抓到猫
      */
     public static Integer needMouseNum=58;
+
+    /**
+     * 猫每次最多能抓多少只老鼠
+     */
+    public static Integer maxCapture=8;
 }

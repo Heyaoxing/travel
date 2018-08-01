@@ -693,6 +693,66 @@ public class PetInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andCattrapTotalIsNull() {
+            addCriterion("cattrap_total is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalIsNotNull() {
+            addCriterion("cattrap_total is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalEqualTo(Integer value) {
+            addCriterion("cattrap_total =", value, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalNotEqualTo(Integer value) {
+            addCriterion("cattrap_total <>", value, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalGreaterThan(Integer value) {
+            addCriterion("cattrap_total >", value, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cattrap_total >=", value, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalLessThan(Integer value) {
+            addCriterion("cattrap_total <", value, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalLessThanOrEqualTo(Integer value) {
+            addCriterion("cattrap_total <=", value, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalIn(List<Integer> values) {
+            addCriterion("cattrap_total in", values, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalNotIn(List<Integer> values) {
+            addCriterion("cattrap_total not in", values, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalBetween(Integer value1, Integer value2) {
+            addCriterion("cattrap_total between", value1, value2, "cattrapTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andCattrapTotalNotBetween(Integer value1, Integer value2) {
+            addCriterion("cattrap_total not between", value1, value2, "cattrapTotal");
+            return (Criteria) this;
+        }
+
         public Criteria andMousetrapNumIsNull() {
             addCriterion("mousetrap_num is null");
             return (Criteria) this;

@@ -1,28 +1,26 @@
 package model.enums;
 
 /**
- * @Description:宠物状态
+ * @Description: 私人事件类型
  * @Author: 990016
- * @Date 2018/7/31 17:52
+ * @Date 2018/8/1 15:50
  */
-public enum PetStatus {
-    TRAVELING(100,"路途中"),
-    ARRIVED(200,"到达地点"),
-    ERROR(300,"异常"),
-    END(400,"结束"),
+public enum PrivateEventType {
+    event_100(100,"被捕"),
+    event_200(200,"抓到宠物"),
     ;
 
     public Integer code;
 
     public String value;
 
-    private PetStatus(Integer code, String value) {
+    private PrivateEventType(Integer code, String value) {
         this.code = code;
         this.value = value;
     }
 
-    public static PetStatus getByCode(Integer code){
-        for(PetStatus e : values()){
+    public static PrivateEventType getByCode(Integer code){
+        for(PrivateEventType e : values()){
             if(e.code.equals(code)){
                 return e;
             }
@@ -31,7 +29,7 @@ public enum PetStatus {
     }
 
     public static String getValueByCode(Integer code){
-        for(PetStatus e : values()){
+        for(PrivateEventType e : values()){
             if(e.code.equals(code)){
                 return e.value;
             }

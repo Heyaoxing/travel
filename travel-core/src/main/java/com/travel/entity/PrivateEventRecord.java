@@ -19,7 +19,7 @@ public class PrivateEventRecord {
     private Long userId;
 
     /**
-     * 事件类型
+     * 事件类型             100：被捕             200：抓到宠物
      */
     private Integer eventType;
 
@@ -82,16 +82,16 @@ public class PrivateEventRecord {
     }
 
     /**
-     * 事件类型
-     * @return event_type 事件类型
+     * 事件类型             100：被捕             200：抓到宠物
+     * @return event_type 事件类型             100：被捕             200：抓到宠物
      */
     public Integer getEventType() {
         return eventType;
     }
 
     /**
-     * 事件类型
-     * @param eventType 事件类型
+     * 事件类型             100：被捕             200：抓到宠物
+     * @param eventType 事件类型             100：被捕             200：抓到宠物
      */
     public void setEventType(Integer eventType) {
         this.eventType = eventType;

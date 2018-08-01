@@ -29,6 +29,8 @@ public class DynamicJobDTO implements Serializable{
     private Long petId;
 
 
+
+
     /**
      * 上一个地点id
      */

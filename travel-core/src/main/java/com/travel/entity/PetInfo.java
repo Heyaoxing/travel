@@ -44,12 +44,17 @@ public class PetInfo {
     private Integer mousetrapTotal;
 
     /**
+     * 累计抓到猫的数量
+     */
+    private Integer cattrapTotal;
+
+    /**
      * 抓捕老鼠数
      */
     private Integer mousetrapNum;
 
     /**
-     * 状态             100：路途中             200：到达地点
+     * 状态             100：路途中             200：到达地点             300：异常             400：结束
      */
     private Integer status;
 
@@ -207,6 +212,22 @@ public class PetInfo {
     }
 
     /**
+     * 累计抓到猫的数量
+     * @return cattrap_total 累计抓到猫的数量
+     */
+    public Integer getCattrapTotal() {
+        return cattrapTotal;
+    }
+
+    /**
+     * 累计抓到猫的数量
+     * @param cattrapTotal 累计抓到猫的数量
+     */
+    public void setCattrapTotal(Integer cattrapTotal) {
+        this.cattrapTotal = cattrapTotal;
+    }
+
+    /**
      * 抓捕老鼠数
      * @return mousetrap_num 抓捕老鼠数
      */
@@ -223,16 +244,16 @@ public class PetInfo {
     }
 
     /**
-     * 状态             100：路途中             200：到达地点
-     * @return status 状态             100：路途中             200：到达地点
+     * 状态             100：路途中             200：到达地点             300：异常             400：结束
+     * @return status 状态             100：路途中             200：到达地点             300：异常             400：结束
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 状态             100：路途中             200：到达地点
-     * @param status 状态             100：路途中             200：到达地点
+     * 状态             100：路途中             200：到达地点             300：异常             400：结束
+     * @param status 状态             100：路途中             200：到达地点             300：异常             400：结束
      */
     public void setStatus(Integer status) {
         this.status = status;

@@ -1,4 +1,4 @@
-package common;
+package common.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
  * @Author: 990016
  * @Date 2018/7/31 15:11
  */
-public class DateUtils {
+public class DateUtil {
     private static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
 
     /***

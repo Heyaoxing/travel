@@ -2,6 +2,7 @@ package com.travel.service;
 
 import model.dto.PlaceSearchDTO;
 import model.dto.RouteInfoDTO;
+import model.dto.WeatherDTO;
 
 /**
  * @Description: 资源服务
@@ -13,6 +14,7 @@ public interface ResourceService {
 
     /**
      * 前往下一个目的地
+     *
      * @param record
      * @return
      */
@@ -24,6 +26,14 @@ public interface ResourceService {
      *
      * @return
      */
-     PlaceSearchDTO getRound(double latitude, double longitude);
+    PlaceSearchDTO getRound(double latitude, double longitude);
+
+    /**
+     * 获取天气信息
+     *
+     * @param cityName
+     * @return
+     */
+    WeatherDTO getWeather(String cityName);
 
 }
